@@ -26,10 +26,6 @@ jobs:
       - name: Install dependencies
         run: yarn install  
 
-      #INSTALL VERCEL CLI IN SERVER.
-      - name: Install Vercel CLI
-        run: yarn global add vercel@latest
-
       #Build
       - name: Build Project
         run: npm run build
@@ -38,5 +34,7 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel --prod --token=$VERCEL_TOKEN --confirm
+        run: |
+          yarn global add vercel@latest
+          vercel --prod --token=$VERCEL_TOKEN --confirm
 
