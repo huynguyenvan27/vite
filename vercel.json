@@ -1,0 +1,14 @@
+{
+  "outputDirectory": "build",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/build/$1"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "main": false
+    }
+  }
+}
