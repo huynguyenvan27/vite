@@ -28,18 +28,14 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Set the vercel env
-        run: |
-          cd build
-          mkdir .vercel
-          cd .vercel
-          touch project.json
-          echo 'YOOO : {\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}' > project.json
+      - name: Install Vercel CLI
+        run: yarn global add vercel@latest
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploying Project using Vercel (giving .env variables as well)..!!
-        run: yarn deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
       - name: Setup finished!
         run: echo "Deploy Done, yeah!"
