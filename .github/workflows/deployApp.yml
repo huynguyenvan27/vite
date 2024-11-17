@@ -30,4 +30,3 @@ jobs:
             vercel-args: '--prod' #optional
             vercel-org-id: ${{ secrets.ORG_ID}}  #required
             vercel-project-id: ${{ secrets.PROJECT_ID}} #required 
-            working-directory: ./vite
