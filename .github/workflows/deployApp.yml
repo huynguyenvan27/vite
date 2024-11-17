@@ -1,10 +1,5 @@
 name: deploy CD
-env:
-  #THIS IS PROJECT INFORMATION WHICH COMES FROM .VERCEL/PROJECT.JSON FILE.
-  # THIS KEY VALUE STORE IN GITHUB ACTION. 
-  # GITHUB.COM > SETTINGS > SECRETS AND VARIABLES > ACTIONS > REPOSITORY SECRETS.
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
 on:
   push:
     branches:
@@ -13,12 +8,25 @@ jobs:
   Deploy-Preview:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v4
-        - name: Install Vercel CLI
-          run: yarn global add vercel@latest
-        - name: Pull Vercel Environment Information
-          run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-        - name: Build Project Artifacts
-          run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-        - name: Deploy Project Artifacts
-          run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        - name: Checkout
+          uses: actions/checkout@v4
+          
+        - name: Setup Node
+          uses: actions/setup-node@v4
+          with:
+            node-version: 20.15.x
+            
+        - name: Package install
+          run: yarn install
+
+        - name: Build project
+          run: yarn build
+
+        - name: Deploy to Vercel
+          uses: amondnet/vercel-action@v21
+          with:
+            vercel-token: ${{ secrets.VERCEL_TOKEN }} # required
+            github-token: ${{ secrets.GITHUB_TOKEN }} #optional 
+            vercel-args: '--prod' #optional
+            vercel-org-id: ${{ secrets.ORG_ID}}  #required
+            vercel-project-id: ${{ secrets.PROJECT_ID}} #required 
