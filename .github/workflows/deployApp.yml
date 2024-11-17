@@ -1,31 +1,42 @@
-name: deploy CD
-
+name: deployPrd
 on:
   push:
     branches:
       - main
+
 jobs:
-  Deploy-Preview:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
+  build-app:
+    runs-on: ubuntu-latest
+ 
+    env:
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.15.x
           
-        - name: Setup Node
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20.15.x
-            
-        - name: Package install
-          run: yarn install
+      - name: Package install
+        run: yarn install
 
-        - name: Build project
-          run: yarn build
+      - name: Build project
+        run: yarn build
 
-        - name: Deploy to Vercel
-          uses: amondnet/vercel-action@v25
-          with:
-            vercel-token: ${{ secrets.VERCEL_TOKEN }} # required
-            vercel-org-id: ${{ secrets.ORG_ID}}  #required
-            vercel-project-id: ${{ secrets.PROJECT_ID}} #required 
-            working-directory: .
+      - name: Set the vercel env
+        run: |
+          cd build
+          mkdir .vercel
+          cd .vercel
+          touch project.json
+          echo 'YOOO : {\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"$VERCEL_ORG_ID\"}' > project.json
+
+      - name: Deploying Project using Vercel (giving .env variables as well)..!!
+        run: yarn deploy
+      - name: Setup finished!
+        run: echo "Deploy Done, yeah!"
