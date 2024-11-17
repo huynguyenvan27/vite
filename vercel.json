@@ -1,14 +1,7 @@
 {
-  "outputDirectory": "build",
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/build/$1"
-    }
-  ],
-  "git": {
-    "deploymentEnabled": {
-      "main": false
-    }
+  "version": 2,
+  "public": false,
+  "github": {
+    "enabled": false
   }
 }
