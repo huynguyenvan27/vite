@@ -13,10 +13,7 @@ export default defineConfig(() => ({
       reportOnFailure: true,
     },
   },
-  base: "/vite-app",
-  build: {
-    outDir: "build",
-  },
+  base: "./",
   plugins: [react()],
   resolve: {
     alias: {
