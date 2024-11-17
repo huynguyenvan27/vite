@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest --coverage.enabled true"
+    "test": "vitest --coverage.enabled true",
+    "deploy": "vc build --prod --confirm --token=$VERCEL_TOKEN"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.3",
