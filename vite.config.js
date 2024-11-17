@@ -12,6 +12,7 @@ export default defineConfig(function () { return ({
             reportOnFailure: true,
         },
     },
+    base: "./",
     build: {
         outDir: "build",
     },
