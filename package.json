@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest --coverage.enabled true",
-    "deploy": "vc build --prod --confirm --token=$VERCEL_TOKEN"
+    "deploy": "vc build --prod --token=$VERCEL_TOKEN"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.3",
