@@ -29,3 +29,5 @@ jobs:
             vercel-org-id: ${{ secrets.ORG_ID}}  #required
             vercel-project-id: ${{ secrets.PROJECT_ID}} #required 
             github-token: ${{ secrets.GITHUB_TOKEN }} #optional 
+            vercel-args: '--yes'  #say yes
+
