@@ -7,7 +7,7 @@ describe("App", () => {
   it("Should render components", async () => {
     renderWithProviders(<App />);
     await waitFor(() => {
-      expect(screen.getByText("Vite + React")).toBeInTheDocument();
+      expect(screen.getByText("CicD")).toBeInTheDocument();
       expect(screen.getByRole("button")).toBeInTheDocument();
     });
   });
